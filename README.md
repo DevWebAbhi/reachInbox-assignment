@@ -34,3 +34,6 @@ Email Assistant is a Node.js application that reads emails from a user's Gmail i
 - dotenv: For managing environment variables
 
 
+## Deployed Link For OAuth
+
+- https://reachinbox-assignment-zdhi.onrender.com/auth/google
