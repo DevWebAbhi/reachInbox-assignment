@@ -13,7 +13,7 @@ Email Assistant is a Node.js application that reads emails from a user's Gmail i
 - Sending replies to the original sender using Nodemailer
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your_username/email-assistant.git`
+1. Clone the repository: `git clone https://github.com/DevWebAbhi/reachInbox-assignment.git`
 2. Navigate to the project directory: `cd reachInbox-assignment`
 3. Install dependencies: `npm install`
 
