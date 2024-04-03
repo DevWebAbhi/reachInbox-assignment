@@ -66,6 +66,7 @@ function readEmails(accessToken, refreshToken, profile) {
                             arr.forEach(async (e, idx) => {
                                 try {
                                     if (idx == 0) {
+                                        console.log(body);
                                         await run(body, subject, emailId);
                                         
                                     }
