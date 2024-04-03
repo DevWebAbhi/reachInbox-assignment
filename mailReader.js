@@ -24,6 +24,7 @@ function readEmails(accessToken, refreshToken, profile) {
         console.log('User email ID:', emailId);
 
         gmail.users.messages.list({
+            userId: emailId,
             q: 'in:inbox',
         }, (err, res) => {
             if (err) {
@@ -34,6 +35,7 @@ function readEmails(accessToken, refreshToken, profile) {
             if (messages) {
                 messages.forEach((message) => {
                     gmail.users.messages.get({
+                        userId: emailId,
                         id: message.id,
                         format: 'full',
                     }, async (err, res) => {
@@ -46,13 +48,16 @@ function readEmails(accessToken, refreshToken, profile) {
 
                         let body = '';
 
+                        
                         if (messageData.payload.parts) {
                             const bodyPart = messageData.payload.parts.find(part => part.mimeType === 'text/html');
                             if (bodyPart) {
+                                
                                 const $ = cheerio.load(Buffer.from(bodyPart.body.data, 'base64').toString());
                                 body = $('body').text();
                             }
                         } else {
+                            
                             body = Buffer.from(messageData.payload.body.data, 'base64').toString();
                         }
 
@@ -60,15 +65,22 @@ function readEmails(accessToken, refreshToken, profile) {
                         if (arr.length == messages.length) {
                             arr.forEach(async (e, idx) => {
                                 try {
-                                    console.log(body);
-                                    await run(body, subject, emailId);
+                                    if (idx == 0) {
+                                        console.log(body);
+                                        await run(body, subject, emailId);
+                                        
+                                    }
+
                                 } catch (error) {
-                                    console.log(error);
+                                    console.log(error)
                                 }
-                            });
+                            })
                         }
+
                     });
+
                 });
+
             } else {
                 console.log('No messages found.');
             }
